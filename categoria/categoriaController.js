@@ -13,6 +13,14 @@ categoriaController.get('/:id', async (request, response) => {
     return response.json(categoria);
 });
 
-categorriaController.post
+categoriaController.post('/', async (request, response) => {
+    let {tipoProdt,name, price} = request.body;
+    categoria = await categoriaService.create(tipoProdt, name, price, );
+
+    if (!categoria) return response.status(401).send('Error')
+
+    return response.json(categoria);
+
+});
 
 
