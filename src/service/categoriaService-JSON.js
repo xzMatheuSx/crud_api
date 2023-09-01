@@ -1,16 +1,15 @@
 const { randomUUID } = require('crypto');
-const fs  = require('fs');
+const fs = require('fs');
 
 const categoriaFile = 'categoria.json';
 
-let categoria = [];
-
+var categoria = [];
 
 fs.readFile(categoriaFile, 'utf8', (err, data) => {
-    if (err) {  
+    if (err) {
         console.log(err);
         return;
-    }else{
+    } else {
         categoria = JSON.parse(data);
     }
 });
@@ -20,23 +19,21 @@ const findAll = () => {
 }
 
 const find = (id) => {
+    let foundCategoria = categoria.find(categoria => categoria.id === id);
+    if (!foundCategoria) return false;
 
-    let categoria = categoria.find(categoria => categoria.id === id);
-    if (!categoria) return false;
-
-    return categoria;
-    
+    return foundCategoria;
 };
 
-const create = (name, categoria,price, extras) => {
+const create = (name, menu, price, extras) => {
     price = parseFloat(price);
-    if (name=='' || price==='' || price || categoria ==='' || extras ==='' <0) 
-    return false;
+    if (name == '' || price == '' || menu == '' || extras == '' || price < 0)
+        return false;
 
     const newCategoria = {
         id: randomUUID(),
         name,
-        categoria,
+        menu,
         price,
         extras,
     }
@@ -46,20 +43,20 @@ const create = (name, categoria,price, extras) => {
     return newCategoria;
 }
 
-const update = (id, name, categoria,price,extras) =>{
+const update = (id, name, menu, price, extras) => {
     price = parseFloat(price);
-    if (name=='' || price==='' || categoria==='' || extras===''|| price<0) return false;
+    if (name == '' || price == '' || menu == '' || extras == '' || price < 0) return false;
 
     const categoriaIndex = categoria.findIndex(categoria => categoria.id === id);
 
-    if(categoriaIndex === -1){
+    if (categoriaIndex === -1) {
         return false;
     }
 
     categoria[categoriaIndex] = {
         ...categoria[categoriaIndex],
         name,
-        categoria,
+        menu,
         price,
         extras,
     };
@@ -71,7 +68,7 @@ const update = (id, name, categoria,price,extras) =>{
 const destroy = (id) => {
     const categoriaIndex = categoria.findIndex(categoria => categoria.id === id);
 
-    if(categoriaIndex === -1){
+    if (categoriaIndex === -1) {
         return false;
     }
 
