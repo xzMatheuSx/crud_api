@@ -1,5 +1,5 @@
 const express = require('express');
-const rotas = require('./controllers/categoriaController'); 
+const rotas = require('./src/controllers/categoriaController');
 const listenPort = 3001;
 const app = express();
 app.use(express.json());
