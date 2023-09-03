@@ -1,13 +1,15 @@
 const express = require('express');
-
+//const rotas = require('../src/controllers/menuController');
 const app = express();
 
 const rotas = [
-  { rota: '/categoria', controller: require('../controllers/categoriaController.js') },
+  { rota: '/menu', controller: require('../controllers/menuController.js'),
+    rota: '/categoria', controller: require('../controllers/categoriasController.js')
+  },
 ];
 
 rotas.forEach((item) => {
   app.use(item.rota, item.controller);
 });
 
-module.exports = app;
+module.exports = rotas;
