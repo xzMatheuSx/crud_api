@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const categoriaService = require('../service/categoriaService-JSON.js');
+const categoriaService = require('../service/menuService-mysql.js');
 
 
 router.get('/', (request, response) => {
     response.send('categoriaaaaaaaa!');
 })
 
- router.get('/categorias', async (request, response) => {
+router.get('/categorias', async (request, response) => {
     const categorias = await categoriaService.findAll();
     return response.json(categorias);
- });
+});
 
 
 router.get('/:id', async (request, response) => {

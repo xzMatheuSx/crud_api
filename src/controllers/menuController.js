@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const menuService = require('../service/categoriaService-JSON.js');
+//const menuService = require('../service/categoriaService-JSON.js');
+const menuService = require('../service/menuService-mysql.js');
+
 
 
 router.get('/', (request, response) => {
@@ -8,9 +10,9 @@ router.get('/', (request, response) => {
 })
 
 router.get('/menu', async (request, response) => {
-     const menus = await menuService.findAll();
-     return response.json(menus);
- });
+    const menus = await menuService.findAll();
+    return response.json(menus);
+});
 
 router.get('/:id', async (request, response) => {
     const { id } = request.params;
