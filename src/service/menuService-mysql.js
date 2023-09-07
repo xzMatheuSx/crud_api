@@ -13,19 +13,21 @@ const find = async (id) => {
     return (restaurente[0] ?? null);
 };
 
-const create = async (id,name, price,menu,extras) => {
+const create = async ( { name, price, menu, extras }) => {
     price = parseFloat(price);
-    if (id ===''||name==''  || price ===''|| menu==='' || extras==='' ||price<0) return false;
+    if (name==''  || price ===''|| menu==='' || extras==='' ||price<0) return false;
 
     const menu_controller = {
         name,
-        
+        price,
+        menu,
+        extras
     }
 
     try {
         let db = await connection();
 
-        ret = await db.query("INSERT INTO menu_products (id,name, price,menu,extras) VALUES (?,?, )", [ menu_controller.name, menu_controller.price ] );
+        ret = await db.query("INSERT INTO menu_products (name, price,menu,extras) VALUES (?, ?, ?, ?)", [ menu_controller.name, menu_controller.price, menu_controller.menu, menu_controller.extras ] );
 
         if (ret[0].affectedRows==1){
             menu_controller.id = ret[0].insertId;

@@ -28,8 +28,6 @@ const create = async (id, name, price, menu, extras) => {
     return newMenu;
 }
 
-// ... restante do código ...
-
 module.exports = {
     findAll,
     find,

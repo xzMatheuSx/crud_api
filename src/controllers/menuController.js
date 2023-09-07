@@ -19,7 +19,7 @@ router.get('/:id', async (request, response) => {
 
 router.post('/', async (request, response) => {
     let { name, menu, price, extras } = request.body;
-    const newMenu = await menuService.create(name, menu, price, extras);
+    const newMenu = await menuService.create({ name, menu, price, extras} );
 
     if (!newMenu) return response.status(401).send('Error')
 
