@@ -8,9 +8,9 @@ const findAll = async () => {
 
 const find = async (id) => {
     let db = await connection();
-    let [ restaurente] = await db.query("SELECT * FROM products WHERE id = ?", id);
+    let [ menu] = await db.query("SELECT * FROM menu_products WHERE id = ?", id);
 
-    return (restaurente[0] ?? null);
+    return (menu[0] ?? null);
 };
 
 const create = async ( { name, price, menu, extras }) => {
