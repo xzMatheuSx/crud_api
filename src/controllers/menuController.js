@@ -5,11 +5,7 @@ const menuService = require('../service/menuService-mysql.js');
 
 
 
-router.get('/', (request, response) => {
-    response.send('Carpádio');
-})
-
-router.get('/menu', async (request, response) => {
+router.get('/', async (request, response) => {
     const menus = await menuService.findAll();
     return response.json(menus);
 });
@@ -21,7 +17,7 @@ router.get('/:id', async (request, response) => {
     return response.json(menu);
 });
 
-router.post('/cardapio', async (request, response) => {
+router.post('/', async (request, response) => {
     let { name, menu, price, extras } = request.body;
     const newMenu = await menuService.create(name, menu, price, extras);
 
