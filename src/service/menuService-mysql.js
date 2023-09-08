@@ -27,7 +27,7 @@ const create = async ( { name, price, menu, extras }) => {
     try {
         let db = await connection();
 
-        ret = await db.query("INSERT INTO menu_products (name, price,menu,extras) VALUES (?, ?, ?, ?)", [ menu_controller.name, menu_controller.price, menu_controller.menu, menu_controller.extras ] );
+        insert = await db.query("INSERT INTO menu_products (name, price,menu,extras) VALUES (?, ?, ?, ?)", [ menu_controller.name, menu_controller.price, menu_controller.menu, menu_controller.extras ] );
 
         if (ret[0].affectedRows==1){
             menu_controller.id = ret[0].insertId;
@@ -40,21 +40,20 @@ const create = async ( { name, price, menu, extras }) => {
     return menu_controller;
 }
 
-const update = async (id, name, price) =>{
-    price = parseFloat(price);
-    if (name=='' || price==='' || price<0) return false;
+const update =  async (id, name, price, menu, extras) => {
+    if (!name || !price || !menu || !extras) {
+        console.log('Por favor, forneça valores válidos para name, price, menu e extras');
+        return;
+    }
 
     try {
         let db = await connection();
-
+    
         let product = await find(id);
         if (!product) return false;
-
-        product.name = name;
-        product.price = price;
-
-        ret = await db.query("UPDATE products SET ? WHERE id = ?", [ product, product.id ] );
-
+    
+        ret = await db.query("UPDATE menu_products SET name = ?, price = ?, menu = ?, extras = ? WHERE id = ?", [ name, price, menu, extras, product.id ] );
+    
         if (ret[0].affectedRows==1){
             return product;
         }
@@ -64,6 +63,7 @@ const update = async (id, name, price) =>{
     }
 }
 
+
 const destroy = async (id) => {
     try {
         let db = await connection();
@@ -71,9 +71,9 @@ const destroy = async (id) => {
         let product = await find(id);
         if (!product) return false;
 
-        ret = await db.query("DELETE FROM products WHERE id = ?", [ id ] );
+        ret = await db.query("DELETE FROM menu_products WHERE id = ?", [ id ] );
 
-        return (ret[0].affectedRows);
+        return product;
     }catch(e){
         return false;
     }

@@ -3,11 +3,8 @@ const router = express.Router();
 const categoriaService = require('../service/menuService-mysql.js');
 
 
-router.get('/', (request, response) => {
-    response.send('categoriaaaaaaaa!');
-})
 
-router.get('/categorias', async (request, response) => {
+router.get('/', async (request, response) => {
     const categorias = await categoriaService.findAll();
     return response.json(categorias);
 });
