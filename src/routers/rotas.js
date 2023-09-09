@@ -1,10 +1,10 @@
 const express = require('express');
-//const rotas = require('../src/controllers/menuController');
 const app = express();
 
 const rotas = [
   { rota: '/menu', controller: require('../controllers/menuController.js'),
-    rota: '/categoria', controller: require('../controllers/categoriasController.js')
+    rota: '/categoria', controller: require('../controllers/categoriasController.js'),
+    rota: '/pedido', controller: require('../controllers/pedidosController.js')
   },
 ];
 

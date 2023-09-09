@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-//const menuService = require('../service/categoriaService-JSON.js');
 const menuService = require('../service/menuService-mysql.js');
 
 
